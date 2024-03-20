@@ -17,7 +17,6 @@ class CalendarJsonListView(ListView):
         queryset = CalendarEvent.objects.filter()
         from_date = self.request.GET.get("from", False)
         to_date = self.request.GET.get("to", False)
-
         if from_date and to_date:
             queryset = queryset.filter(
                 start__range=(
