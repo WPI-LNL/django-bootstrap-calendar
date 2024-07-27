@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-__author__ = 'sandlbn'
+__author__ = "sandlbn"
 
 from django import template
 from datetime import datetime
@@ -12,8 +12,7 @@ def timestamp_to_datetime(timestamp):
     Converts string timestamp to datetime
     with json fix
     """
-    if isinstance(timestamp, (str, unicode)):
-
+    if isinstance(timestamp, (str,)):
         if len(timestamp) == 13:
             timestamp = int(timestamp) / 1000
 
@@ -28,17 +27,15 @@ def datetime_to_timestamp(date):
     with json fix
     """
     if isinstance(date, datetime):
-
         timestamp = mktime(date.timetuple())
         json_timestamp = int(timestamp) * 1000
 
-        return '{0}'.format(json_timestamp)
+        return "{0}".format(json_timestamp)
     else:
         return ""
 
 
 class MinifyJs(template.Node):
-
     def __init__(self, nodelist):
         self.nodelist = nodelist
 
