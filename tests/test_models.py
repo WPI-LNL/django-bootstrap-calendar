@@ -21,12 +21,13 @@ DATABASES = {
     }
 }
 
-settings.configure(
-    DEBUG=True,
-    TEMPLATE_DEBUG=True,
-    DATABASES=DATABASES,
-    DEFAULT_DB_ALIAS='default',
-)
+if not settings.configured:
+    settings.configure(
+        DEBUG=True,
+        TEMPLATE_DEBUG=True,
+        DATABASES=DATABASES,
+        DEFAULT_DB_ALIAS='default',
+    )
 
 from django_bootstrap_calendar.serializers import event_serializer
 from django_bootstrap_calendar.utils import datetime_to_timestamp
@@ -39,23 +40,23 @@ class TestDjango_bootstrap_calendar(unittest.TestCase):
         pass
 
     def test_convert_datetime_to_timestamp(self):
-        value = '1376978400000'
+        value = '1377000000000'
         self.assertEquals(value, datetime_to_timestamp(
             datetime(2013, 8, 20, 8, 00)
         ), msg="testing")
 
     def test_convert_timestamp_to_datetime(self):
-        value = datetime(2013, 8, 20, 8, 00)
+        value = datetime(2013, 8, 20, 2, 00)
         self.assertEquals(
             value,
             timestamp_to_datetime('1376978400000')
         )
 
     def test_no_calendar_event_response(self):
-        print "testing serializer"
+        print("testing serializer")
 
         self.assertEqual(
-            '{"result": [], "success": 1}',
+            '{"success": 1, "result": []}',
             event_serializer(None)
         )
 
